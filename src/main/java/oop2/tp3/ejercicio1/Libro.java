@@ -11,10 +11,6 @@ public abstract class Libro {
         this.nombre = nombre;
     }
 
-//    public int codigoPrecio() {
-//        return codigoPrecio;
-//    }
-
     public String nombre() {
         return nombre;
     }

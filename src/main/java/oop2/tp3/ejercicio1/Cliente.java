@@ -17,8 +17,7 @@ public class Cliente {
         int puntosAlquilerFrecuente = 0;
         for (Alquiler alquiler : alquileres) {
             total = alquiler.copia().libro().calcularCosto(alquiler.diasAlquilados());
-            puntosAlquilerFrecuente++; // sumo puntos por alquiler
-            // bonus por dos días de alquiler de un nuevo lanzamiento
+            puntosAlquilerFrecuente++;
             puntosAlquilerFrecuente+=alquiler.copia().libro().calcularBonus(alquiler.diasAlquilados());
         }
         resultado[0] = total;

@@ -3,49 +3,39 @@ package oop2.tp3.ejercicio3;
 import java.time.LocalDate;
 import java.util.List;
 
-enum TipoDeGasto {
-    CENA, DESAYUNO, ALQUILER_AUTO
-}
-
-class Gasto {
-    TipoDeGasto tipoGasto;
-    int monto;
-}
 
 public class ReporteDeGastos {
-    public void imprimir(List<Gasto> gastos) {
+    public String imprimir(List<Gasto> gastos) {
         int total = 0;
         int gastosDeComida = 0;
+        String reporte="";
 
-        System.out.println("Expenses " + LocalDate.now());
-
+        reporte+= "Expenses " + LocalDate.now() + System.lineSeparator();
         for (Gasto gasto : gastos) {
-            if (gasto.tipoGasto == TipoDeGasto.CENA || gasto.tipoGasto == TipoDeGasto.DESAYUNO) {
+            if (esComida(gasto)) {
                 gastosDeComida += gasto.monto;
             }
-
-            String nombreGasto = "";
-            switch (gasto.tipoGasto) {
-                case CENA:
-                    nombreGasto = "Cena";
-                    break;
-                case DESAYUNO:
-                    nombreGasto = "Desayuno";
-                    break;
-                case ALQUILER_AUTO:
-                    nombreGasto = "Alquiler de Autos";
-                    break;
-            }
-
-            String marcaExcesoComidas = gasto.tipoGasto == TipoDeGasto.CENA && gasto.monto > 5000
-                    || gasto.tipoGasto == TipoDeGasto.DESAYUNO && gasto.monto > 1000 ? "X" : " ";
-
-            System.out.println(nombreGasto + "\t" + gasto.monto + "\t" + marcaExcesoComidas);
-
+            String nombreGasto = gasto.TIPO;
+            String marcaExcesoComidas = marcaExesoDeComida(gasto);
+            reporte+=nombreGasto + "\t" + gasto.monto + "\t" + marcaExcesoComidas + System.lineSeparator();
             total += gasto.monto;
         }
 
-        System.out.println("Gastos de comida: " + gastosDeComida);
-        System.out.println("Total de gastos: " + total);
+        reporte+="Gastos de comida: " + gastosDeComida + System.lineSeparator();
+        reporte+="Total de gastos: " + total + System.lineSeparator();
+        return  reporte;
     }
+
+    private static boolean esComida(Gasto gasto) {
+        return gasto.TIPO == "CENA" || gasto.TIPO == "DESAYUNO";
+    }
+    private String marcaExesoDeComida (Gasto gasto) {
+        if (esComida(gasto) && gasto.monto > 5000
+                || esComida(gasto) && gasto.monto > 1000) {
+            return "X";
+        }
+        return " ";
+    }
+
+
 }
